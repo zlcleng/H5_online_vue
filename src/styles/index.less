@@ -1,0 +1,249 @@
+@import './variables.less';
+@import './mixin.less';
+@import './transition.less';
+@import './element-ui.less';
+
+body {
+  height: 100%;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+}
+
+label {
+  font-weight: 700;
+}
+
+html {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+#app {
+  height: 100%;
+}
+
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+a:focus,
+a:active {
+  outline: none;
+}
+
+a,
+a:focus,
+a:hover {
+  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+}
+
+div:focus {
+  outline: none;
+}
+
+.clearfix {
+  &:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+  }
+}
+
+// main-container global css
+.app-container {
+  padding: 20px;
+}
+
+// base
+// display
+.display-inb {
+  display: inline-block;
+}
+.display-flex {
+  display: flex;
+  align-items: center;
+}
+
+// text
+.text-center {
+  text-align: center;
+}
+.text-right {
+  text-align: right;
+}
+
+.text-primary {
+  color: @--color-primary;
+}
+
+// h1 - h5
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  color: #606266;
+}
+
+// margin
+.m-m {
+  margin: 20px;
+}
+.mp-m {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+.mv-m {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.ml-30 {
+  margin-left: 30px;
+}
+.ml-10 {
+  margin-left: 10px !important;
+}
+.mr-10 {
+  margin-right: 10px;
+}
+.mt-10 {
+  margin-top: 10px;
+}
+.mb-10 {
+  margin-bottom: 10px !important;
+}
+.mb-20{
+  margin-bottom: 20px;
+}
+.mt-20 {
+  margin-top: 20px;
+}
+
+.flex {
+  display: flex;
+}
+.flex-sub {
+  flex: 1;
+}
+.flex-direction {
+  flex-direction: column;
+}
+.flex-column-reverse {
+  flex-direction: column-reverse;
+}
+.flex-wrap {
+  flex-wrap: wrap;
+}
+.align-start {
+  align-items: flex-start;
+}
+
+.align-end {
+  align-items: flex-end;
+}
+
+.align-center {
+  align-items: center;
+}
+.justify-start {
+  justify-content: flex-start;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-around {
+  justify-content: space-around;
+}
+
+
+// color
+.text-danger{
+  color: @danger;
+}
+.text-info {
+  color: @info;
+}
+.text-warning {
+  color: @warning;
+}
+.text-success {
+  color: @success;
+}
+.text-hidden {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.pointer {
+  cursor: pointer;
+}
+.absolute {
+  position: absolute;
+}
+.btn-lg {
+  width: 150px;
+  height: 40px;
+  span {
+    font-size: 15px;
+  }
+}
+// el-tabs
+.mj-tabs {
+  .el-tabs__header {
+    margin-bottom: 20px;
+  }
+  .el-tabs__nav {
+    &-wrap {
+      &::after {
+        height: 1px;
+      }
+    }
+    &-scroll {
+      padding: 15px 20px 0;
+    }
+  }
+  .el-tabs__item {
+    font-size: 15px;
+  }
+}
+// tab-menus
+.tab-menus {
+  .el-menu-item {
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    &.is-active {
+      background-color: #ecf5ff;
+    }
+  }
+}
+/*滚动条整体样式*/
+div::-webkit-scrollbar{
+  width: 6px;/*竖向滚动条的宽度*/
+  height: 6px;/*横向滚动条的高度*/
+}
+div::-webkit-scrollbar-thumb{/*滚动条里面的小方块*/
+  background: rgba(0,0,0, .2); //#999999;
+  border-radius: 3px;
+}
+div::-webkit-scrollbar-track{/*滚动条轨道的样式*/
+  background: transparent; // #ccc;
+  border-radius: 3px;
+}
