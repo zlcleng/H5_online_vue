@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-01-18 10:05:59
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-08-26 19:58:33
+ * @LastEditTime: 2021-08-31 20:03:52
  * @FilePath: \vue_patient_follow\src\plugins\element.js
  */
 import Vue from 'vue'
@@ -18,7 +18,8 @@ import {
   Popover,
   Dropdown,
   DropdownMenu,
-  DropdownItem
+  DropdownItem,
+  Scrollbar
   // Message,
   // MessageBox
 } from 'element-ui'
@@ -41,7 +42,8 @@ const components = [
   Popover,
   Dropdown,
   DropdownMenu,
-  DropdownItem
+  DropdownItem,
+  Scrollbar
   // Message,
   // MessageBox
 ]

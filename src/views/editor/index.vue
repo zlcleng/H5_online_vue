@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-08-25 18:48:41
- * @LastEditTime: 2021-08-25 20:44:15
+ * @LastEditTime: 2021-08-31 20:10:36
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \h5_online_editor\src\views\editor\index.vue
@@ -9,26 +9,38 @@
 <template>
   <div class="poster-editor">
     <div class="base">
-      <!-- <left-side /> -->
+      <!-- 左边组件库 -->
+      <left-side />
+      <!-- 中间编辑模块 -->
       <center-poster ref="main" />
       <!-- <extend-side-bar />
       <control-component /> -->
     </div>
     <!-- 图层面板 -->
-    <!-- <transition name="el-zoom-in-top">
+    <transition name="el-zoom-in-top">
       <layer-panel v-show="layerPanelOpened" />
-    </transition> -->
+    </transition>
   </div>
 </template>
 
 <script>
-import CenterPoster from './components/CenterPoster'
+import { createNamespacedHelpers } from 'vuex'
+import { CenterPoster, LayerPanel, LeftSide } from './components'
+const { mapState } = createNamespacedHelpers('poster')
+
 export default {
   data () {
     return {}
   },
   components: {
-    CenterPoster
+    CenterPoster,
+    LayerPanel,
+    LeftSide
+  },
+  computed: {
+    ...mapState([
+      'layerPanelOpened'
+    ])
   }
 }
 </script>
