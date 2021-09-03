@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-01-18 10:05:59
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-08-31 20:03:52
+ * @LastEditTime: 2021-09-02 19:26:35
  * @FilePath: \vue_patient_follow\src\plugins\element.js
  */
 import Vue from 'vue'
@@ -13,6 +13,7 @@ import {
   Button,
   Switch,
   Input,
+  InputNumber,
   Upload,
   Tooltip,
   Popover,
@@ -37,6 +38,7 @@ const components = [
   Button,
   Switch,
   Input,
+  InputNumber,
   Upload,
   Tooltip,
   Popover,

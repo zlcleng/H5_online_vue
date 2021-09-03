@@ -1,13 +1,13 @@
 /*
  * @Author: your name
  * @Date: 2021-08-26 17:43:09
- * @LastEditTime: 2021-08-26 20:25:16
+ * @LastEditTime: 2021-09-02 13:30:53
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \h5_online_editor\src\utils\exports.js
  */
 import store from '@/store'
-// import { saveAs } from 'file-saver'
+import { saveAs } from 'file-saver'
 import { createDom, domToImg, base64ToBlob } from './util'
 
 /**

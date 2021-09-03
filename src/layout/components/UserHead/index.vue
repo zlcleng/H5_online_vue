@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-08-25 18:53:05
- * @LastEditTime: 2021-08-25 19:27:58
+ * @LastEditTime: 2021-09-01 18:50:00
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \h5_online_editor\src\layout\components\UserInfo\index.vue
@@ -34,7 +34,7 @@
       </el-dropdown-menu>
     </el-dropdown>
     <div v-else class="inline-block">
-      <span class="login-btn" @click="goLogin">登录/注册</span>
+      <!-- <span class="login-btn" @click="goLogin">登录/注册</span> -->
     </div>
   </div>
 </template>

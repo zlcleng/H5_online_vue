@@ -1,11 +1,13 @@
 /*
  * @Author: your name
  * @Date: 2021-08-31 19:31:09
- * @LastEditTime: 2021-08-31 20:06:25
+ * @LastEditTime: 2021-09-02 20:08:39
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \h5_online_editor\src\directives\index.js
  */
+export { default as clickoutside } from 'element-ui/src/utils/clickoutside'
+
 export const mousedrag = {
   bind (el, binding) {
     el.onmousedown = function (e) {

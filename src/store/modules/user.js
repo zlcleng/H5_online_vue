@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-02-19 11:34:41
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-08-25 20:28:22
+ * @LastEditTime: 2021-09-01 19:32:48
  * @FilePath: \vue_h5_online\src\store\modules\user.js
  */
 const state = {
@@ -69,6 +69,7 @@ const getters = {
 }
 
 export default {
+  namespaced: true,
   state,
   getters,
   mutations

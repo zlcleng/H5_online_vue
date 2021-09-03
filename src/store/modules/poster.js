@@ -1,37 +1,50 @@
 /*
  * @Author: your name
  * @Date: 2021-08-25 20:21:53
- * @LastEditTime: 2021-08-31 19:42:04
+ * @LastEditTime: 2021-09-02 20:52:04
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \h5_online_editor\src\store\modules\poster.js
  */
 import { Message } from 'element-ui'
+import { BackgroundWidget, Widget, CopiedWidget } from '@/constructor/widget'
+import { set } from 'lodash'
+
+const background = new BackgroundWidget({
+  backgroundColor: '#fff',
+  isSolid: true,
+  lock: true
+})
 
 const state = {
   canvasSize: {
-    width: 338,
-    height: 600
+    width: 375,
+    height: 667
   },
   canvasPosition: {
     top: null,
     left: null
   },
-  background: null,
+  background,
   mainPanelScrollY: 0,
   posterItems: [], // 组件列表
   activeItems: [], // 当前选中的组件
   layerPanelOpened: true, // 是否打开图层面板
   referenceLineOpened: true, // 是否打开参考线
+  matchedLine: null, // 匹配到的参考线 {row:[],col:[]}
   referenceLine: { // 参考线,用户定义的参考线
     row: [],
     col: []
-  }
+  },
+  isUnsavedState: false // 是否处于未保存状态
 }
 
 const getters = {
   canvasSize (state) {
     return state.canvasSize
+  },
+  activeItemIds (state) {
+    return state.activeItems.map(item => item.id)
   }
 }
 
@@ -96,6 +109,26 @@ const mutations = {
   // 替换选中的组件
   REPLACE_ACTIVE_ITEMS (state, items) {
     state.activeItems = items.filter(i => (!i.lock) && i.couldAddToActive)
+  },
+  SET_MATCHED_LINE (state, data) {
+    state.matchedLine = data
+  },
+  REMOVE_MATCHED_LINE (state) {
+    state.matchedLine = null
+  },
+  // 添加选中的组件
+  ADD_ACTIVE_ITEM (state, item) {
+    if (item.lock || !item.visible || !item.couldAddToActive) {
+      return
+    }
+    state.activeItems.push(item)
+  },
+  // 取消选中
+  REMOVE_ACTIVE_ITEM (state, item) {
+    state.activeItems = state.activeItems.filter(i => i.id !== item.id)
+  },
+  SET_UNSAVED_STATE (state, flag = false) {
+    state.isUnsavedState = flag
   }
 }
 
@@ -103,22 +136,32 @@ const actions = {
   setCanvasSize ({ state }, data) {
     state.canvasSize = data
   },
+  setUnsavedState ({ commit }, flag) {
+    commit('SET_UNSAVED_STATE', flag)
+  },
   setCanvasPosition ({ commit }, data) {
     commit('SET_CANVAS_POSITION', data)
+  },
+  seekBackgroundSize ({ state }) {
+    const background = state.background
+    if (background && background.wState.isSolid) {
+      background.dragInfo.w = state.canvasSize.width
+      background.dragInfo.h = state.canvasSize.height
+    }
   },
   setScrolly ({ commit }, data) {
     commit('SET_SCROLL_Y', data)
   },
   addReferenceLine ({ commit, dispatch }, item) {
-    dispatch('history/push')
+    dispatch('history/push', null, { root: true })
     commit('ADD_REFERENCE_LINE', item)
   },
   removeReferenceLine ({ commit, dispatch }, item) {
-    dispatch('history/push')
+    dispatch('history/push', null, { root: true })
     commit('REMOVE_REFERENCE_LINE', item)
   },
   removeAllReferenceLine ({ commit, dispatch }) {
-    dispatch('history/push')
+    dispatch('history/push', null, { root: true })
     commit('REMOVE_ALL_REFERENCE_LINE')
   },
   setReferenceLineVisible ({ commit }, flag) {
@@ -138,12 +181,13 @@ const actions = {
         return
       }
     }
+    console.log(item, 'item')
     if (item instanceof Widget) {
-      dispatch('history/push')
+      dispatch('history/push', null, { root: true })
       if (!(item instanceof CopiedWidget)) {
-        commit(MTS.REPLACE_ACTIVE_ITEMS, [item])
+        commit('REPLACE_ACTIVE_ITEMS', [item])
       }
-      commit(MTS.ADD_ITEM, item)
+      commit('ADD_ITEM', item)
     }
   },
   // 移除组件
@@ -152,16 +196,71 @@ const actions = {
       return
     }
     if (getters.activeItemIds.includes(item.id)) {
-      commit(MTS.REMOVE_ACTIVE_ITEM, item)
+      commit('REMOVE_ACTIVE_ITEM', item)
     }
-    dispatch('history/push')
+    dispatch('history/push', null, { root: true })
     commit('REMOVE_ITEM', item)
   },
   // 替换组件
   replacePosterItems ({ commit, dispatch }, items) {
-    dispatch('history/push')
-    commit(MTS.REPLACE_POSTER_ITEMS, items)
-    commit(MTS.REPLACE_ACTIVE_ITEMS, [])
+    dispatch('history/push', null, { root: true })
+    commit('REPLACE_POSTER_ITEMS', items)
+    commit('REPLACE_ACTIVE_ITEMS', [])
+  },
+  // 更新组件state
+  updateWidgetState ({ state, dispatch }, { keyPath, value, widgetId, pushHistory = true }) {
+    const widgetItem = state.posterItems.find(i => i.id === widgetId)
+    if (widgetItem) {
+      // 某些操作不添加进历史记录栈
+      if (pushHistory) {
+        dispatch('history/push', null, { root: true })
+      }
+      set(widgetItem.wState, keyPath, value)
+    }
+  },
+  setMatchedLine ({ commit }, data) {
+    commit('SET_MATCHED_LINE', data)
+  },
+  removeMatchedLine ({ commit }) {
+    commit('REMOVE_MATCHED_LINE')
+  },
+  removeActiveItem ({ commit }, item) {
+    commit('REMOVE_ACTIVE_ITEM', item)
+  },
+  replaceActiveItems ({ commit }, items) {
+    commit('REPLACE_ACTIVE_ITEMS', items)
+  },
+  // 更新组件位置、大小等
+  updateDragInfo ({ state }, { dragInfo, widgetId, updateSelfOnly = false }) {
+    const widgetItem = state.posterItems.find(i => i.id === widgetId)
+    if (!widgetItem) {
+      return
+    }
+    // if (isMoving) {
+    const preDragInfo = widgetItem.dragInfo
+    const activeItems = state.activeItems
+    dragInfo = Object.assign({}, preDragInfo, dragInfo)
+    if (updateSelfOnly) {
+      widgetItem.dragInfo = Object.assign({}, widgetItem.dragInfo, dragInfo)
+    } else if (activeItems.length > 0) {
+      const diffDragInfo = {
+        w: dragInfo.w - preDragInfo.w,
+        h: dragInfo.h - preDragInfo.h,
+        x: dragInfo.x - preDragInfo.x,
+        y: dragInfo.y - preDragInfo.y,
+        rotateZ: dragInfo.rotateZ - preDragInfo.rotateZ
+      }
+      activeItems.forEach(item => {
+        const { x, y, w, h, rotateZ } = item.dragInfo
+        item.dragInfo = {
+          x: x + diffDragInfo.x,
+          y: y + diffDragInfo.y,
+          w: w + diffDragInfo.w,
+          h: h + diffDragInfo.h,
+          rotateZ: rotateZ + diffDragInfo.rotateZ
+        }
+      })
+    }
   }
 }
 

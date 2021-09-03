@@ -1,14 +1,14 @@
 /*
  * @Author: your name
  * @Date: 2021-08-26 20:21:04
- * @LastEditTime: 2021-08-26 20:21:26
- * @LastEditors: your name
+ * @LastEditTime: 2021-09-01 19:26:52
+ * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \h5_online_editor\src\constructor\widget\background.js
  */
 import Widget from './widget'
-import _merge from 'lodash/merge'
-import { createHtmlStr } from 'poster/utils'
+import { merge } from 'lodash'
+import { createHtmlStr } from '@/utils'
 
 function codeGen (config) {
   const node = {
@@ -29,7 +29,7 @@ function codeGen (config) {
 // 背景Widget
 export default class BackgroundWidget extends Widget {
   constructor (config) {
-    config = _merge({
+    config = merge({
       type: 'background',
       typeLabel: '背景',
       componentName: 'background-widget',

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-08-25 19:59:17
- * @LastEditTime: 2021-08-26 11:51:04
+ * @LastEditTime: 2021-09-01 20:23:37
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \h5_online_editor\src\views\editor\components\CenterMain\index.vue
@@ -9,7 +9,7 @@
 <template>
   <div ref="main" class="poster-editor-main" @contextmenu.prevent="">
     <div ref="mainPanelScrollContent" class="main-panel-scroll-content">
-      <!-- <main-panel ref="mainPanel" @openContextmenu="openContextmenu" /> -->
+      <main-panel ref="mainPanel" @openContextmenu="openContextmenu" />
     </div>
     <div class="mask" :style="maskStyle" />
     <ruler />
@@ -18,6 +18,7 @@
 <script>
 import { createNamespacedHelpers } from 'vuex'
 import Ruler from '../Ruler'
+import mainPanel from './mainPanel'
 import { throttle } from 'lodash'
 import BScroll from '@better-scroll/core'
 import MouseWheel from '@better-scroll/mouse-wheel'
@@ -26,11 +27,13 @@ import ScrollBar from '@better-scroll/scroll-bar'
 const { mapState } = createNamespacedHelpers('poster')
 
 export default {
-  components: { Ruler },
+  components: { Ruler, mainPanel },
   data () {
     return {
       maskBorderWidth: '',
-      maskHeight: 0
+      maskHeight: 0,
+      contextmenuVisible: false,
+      contextmenuPosition: { x: 0, y: 0 }
     }
   },
   watch: {
@@ -107,6 +110,13 @@ export default {
       this.BScroll.on('scroll', ({ y }) => {
         this.$store.dispatch('poster/setScrolly', y)
       })
+    },
+    openContextmenu ({ x, y, menuList, vm }) {
+      this.contextmenuPosition.x = x
+      this.contextmenuPosition.y = y
+      this.menuList = menuList
+      this._currentContextmenuWidgetVm = vm
+      this.contextmenuVisible = true
     }
   }
 }

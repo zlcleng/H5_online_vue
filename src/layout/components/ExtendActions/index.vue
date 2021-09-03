@@ -1,13 +1,14 @@
 <!--
  * @Author: your name
  * @Date: 2021-08-26 17:31:37
- * @LastEditTime: 2021-08-26 20:27:29
+ * @LastEditTime: 2021-09-02 19:21:30
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \h5_online_editor\src\layout\components\ExtendActions\index.vue
 -->
 <template>
   <div class="extend-side-bar">
+    <change-page-size />
     <div class="list">
       <el-tooltip
         effect="dark"
@@ -122,6 +123,7 @@
   </div>
 </template>
 <script>
+import ChangePageSize from './changePageSize.vue'
 import { createNamespacedHelpers } from 'vuex'
 import ExportActions from '@/utils/exports'
 import ReferenceLine from '../ReferenceLine'
@@ -129,7 +131,7 @@ import ReferenceLine from '../ReferenceLine'
 const { mapState: mapHitoryState, mapActions: mapHistoryActions } = createNamespacedHelpers('history')
 
 export default {
-  components: { ReferenceLine },
+  components: { ReferenceLine, ChangePageSize },
   data () {
     return {}
   },
@@ -158,6 +160,11 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.extend-side-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .list {
   display: flex;
   justify-content: center;
