@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-08-25 18:48:41
- * @LastEditTime: 2021-08-31 20:10:36
+ * @LastEditTime: 2021-09-03 13:11:28
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \h5_online_editor\src\views\editor\index.vue
@@ -13,8 +13,7 @@
       <left-side />
       <!-- 中间编辑模块 -->
       <center-poster ref="main" />
-      <!-- <extend-side-bar />
-      <control-component /> -->
+      <control-component />
     </div>
     <!-- 图层面板 -->
     <transition name="el-zoom-in-top">
@@ -25,7 +24,7 @@
 
 <script>
 import { createNamespacedHelpers } from 'vuex'
-import { CenterPoster, LayerPanel, LeftSide } from './components'
+import { CenterPoster, LayerPanel, LeftSide, ControlComponent } from './components'
 const { mapState } = createNamespacedHelpers('poster')
 
 export default {
@@ -35,7 +34,8 @@ export default {
   components: {
     CenterPoster,
     LayerPanel,
-    LeftSide
+    LeftSide,
+    ControlComponent
   },
   computed: {
     ...mapState([
