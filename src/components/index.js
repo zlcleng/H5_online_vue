@@ -9,8 +9,10 @@
 
 import DraggableResizable from './DraggableResizable'
 import ImageSelect from './ImgaeSelect'
+import BaseControl from './BaseControl'
 
 export {
   DraggableResizable,
-  ImageSelect
+  ImageSelect,
+  BaseControl
 }

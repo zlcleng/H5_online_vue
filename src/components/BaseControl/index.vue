@@ -22,7 +22,7 @@
           <p class="attr-item-title">尺寸：</p>
           <div class="col-2 attr-item-edit-input">
             <el-input-number
-              v-model="dragInfo.w"
+              v-model="activeElement.commonStyle.width"
               size="mini"
               controls-position="right"
               :min="0"
@@ -31,7 +31,7 @@
           </div>
           <div class="col-2 attr-item-edit-input">
             <el-input-number
-              v-model="dragInfo.h"
+              v-model="activeElement.commonStyle.height"
               size="mini"
               controls-position="right"
               :min="0"
@@ -39,7 +39,7 @@
             <div class="attr-item-edit-input-des">高度</div>
           </div>
         </div>
-        <!-- <div class="attr-item-edit-wrapper">
+        <div class="attr-item-edit-wrapper">
           <p class="attr-item-title">快捷resize：</p>
           <div class="sizeAndPosition-wrapper">
             <div class="align-type-item clearFlex" @click="handleResizeClick('wh')">
@@ -58,8 +58,8 @@
               </el-tooltip>
             </div>
           </div>
-        </div> -->
-        <!-- <div class="attr-item-edit-wrapper">
+        </div>
+        <div class="attr-item-edit-wrapper">
           <p class="attr-item-title">位置：</p>
           <div class="col-2 attr-item-edit-input">
             <el-input-number
@@ -77,8 +77,8 @@
             />
             <div class="attr-item-edit-input-des">Y</div>
           </div>
-        </div> -->
-        <!-- <div class="attr-item-edit-wrapper">
+        </div>
+        <div class="attr-item-edit-wrapper">
           <p class="attr-item-title">旋转：</p>
           <div class="col-1 attr-item-edit-input">
             <el-slider
@@ -91,12 +91,12 @@
               @change="throttleAddHistory"
             />
           </div>
-        </div> -->
+        </div>
       </el-collapse-item>
 
       <el-collapse-item title="边框边距：" name="2">
         <!--边框-->
-        <!-- <div class="attr-item-edit-wrapper">
+        <div class="attr-item-edit-wrapper">
           <p class="attr-item-title">边框：</p>
           <div class="col-2 attr-item-edit-input">
             <el-input-number
@@ -126,8 +126,8 @@
             </el-select>
             <div class="attr-item-edit-input-des">样式</div>
           </div>
-        </div> -->
-        <!-- <div class="attr-item-edit-wrapper">
+        </div>
+        <div class="attr-item-edit-wrapper">
           <p class="attr-item-title">边框圆弧：</p>
           <div class="col-2 attr-item-edit-input">
             <el-input-number
@@ -138,10 +138,10 @@
               @change="throttleAddHistory"
             />
           </div>
-        </div> -->
+        </div>
         <!--边距-->
 
-        <!-- <div class="attr-item-edit-wrapper">
+        <div class="attr-item-edit-wrapper">
           <p class="attr-item-title">上下边距：</p>
           <div class="col-2 attr-item-edit-input">
             <el-input-number
@@ -161,8 +161,8 @@
               @change="throttleAddHistory"
             />
           </div>
-        </div> -->
-        <!-- <div class="attr-item-edit-wrapper">
+        </div>
+        <div class="attr-item-edit-wrapper">
           <p class="attr-item-title">左右边距：</p>
           <div class="col-2 attr-item-edit-input">
             <el-input-number
@@ -182,11 +182,11 @@
               @change="throttleAddHistory"
             />
           </div>
-        </div> -->
+        </div>
         <!--外边距-->
       </el-collapse-item>
       <el-collapse-item title="阴影样式：" name="3">
-        <!-- <div class="attr-item-edit-wrapper">
+        <div class="attr-item-edit-wrapper">
           <p class="attr-item-title">阴影位置：</p>
           <div class="col-2 attr-item-edit-input">
             <el-input-number v-model="boxShadow.h" size="mini" controls-position="right" @change="boxShadowChange" />
@@ -218,9 +218,9 @@
           <div class="attr-item-edit-input">
             <el-color-picker v-model="boxShadow.color" size="mini" @change="boxShadowChange" />
           </div>
-        </div> -->
+        </div>
       </el-collapse-item>
-      <!-- <el-collapse-item title="字体：" name="4">
+      <el-collapse-item title="字体：" name="4">
         <div class="attr-item-edit-wrapper">
           <p class="attr-item-title">字体大小：</p>
           <div class="col-2 attr-item-edit-input">
@@ -303,8 +303,8 @@
             />
           </div>
         </div>
-      </el-collapse-item> -->
-      <!-- <el-collapse-item title="背景&&透明度：" name="5">
+      </el-collapse-item>
+      <el-collapse-item title="背景&&透明度：" name="5">
         <div class="attr-item-edit-wrapper">
           <p class="attr-item-title">背景颜色：</p>
           <div class="attr-item-edit-input no-top">
@@ -337,30 +337,22 @@
             />
           </div>
         </div>
-      </el-collapse-item> -->
+      </el-collapse-item>
     </el-collapse>
   </div>
 </template>
 
 <script>
-import { createNamespacedHelpers } from 'vuex'
-// import { styleMixin } from '@/mixins/updateStyle'
+import { mapState, mapGetters } from 'vuex'
+import { styleMixin } from '@/mixins/updateStyle'
 import { ceil, subtract, divide, throttle } from 'lodash'
-// import { ImageSelect } from '@/components'
-const { mapState, mapActions } = createNamespacedHelpers('poster')
+import { ImageSelect } from '@/components'
 
 export default {
   components: {
-    // ImageSelect
+    ImageSelect
   },
-  props: {
-    dragInfo: {
-      type: Object,
-      default: () => {},
-      require: true
-    }
-  },
-  // mixins: [styleMixin],
+  mixins: [styleMixin],
   data () {
     return {
       activeNames: ['1'],
@@ -414,37 +406,125 @@ export default {
   },
   computed: {
     ...mapState({
-      canvasWidth: (state) => state.canvasSize.width,
-      canvasHeight: (state) => state.canvasSize.height
-    })
+      projectData: state => state.editor.projectData,
+      activePageUUID: state => state.editor.activePageUUID,
+      activeElementUUID: state => state.editor.activeElementUUID,
+      activeAttrEditCollapse: state => state.editor.activeAttrEditCollapse
+    }),
+    ...mapGetters([
+      'currentPageIndex',
+      'activeElementIndex',
+      'activeElement',
+      'activePage'
+    ])
+  },
+  watch: {
+    activeElementUUID () {
+      // 设置boxShadow
+      this.$nextTick(() => {
+        this.initBoxShadowEdit()
+      })
+    },
+    activeNames () {
+      this.$store.commit('updateActiveAttrEditCollapse', this.activeNames)
+    }
+  },
+  created () {
+    this.throttleAddHistory = throttle(this.addHistory, 3000)
+  },
+  mounted () {
+    this.initBoxShadowEdit()
+    this.activeNames = this.activeAttrEditCollapse
   },
   methods: {
+    /**
+			 * 纪录一条历史纪录
+			 * */
+    addHistory () {
+      // console.log('common style change addHistoryCache')
+      this.$store.dispatch('addHistoryCache')
+    },
+    /**
+			 *
+			 * @param type
+			 */
     changeAlignType (type) {
-      const canvasW = this.canvasWidth
-      const canvasH = this.canvasHeight
+      const canvasW = this.$config.canvasH5Width
+      const canvasH = this.$config.canvasH5Height
+      const eleW = this.activeElement.commonStyle.width
+      const eleH = this.activeElement.commonStyle.height
 
-      const eleW = this.dragInfo.w
-      const eleH = this.dragInfo.h
-      console.log(type)
       switch (type) {
         case 't':
-          this.dragInfo.y = 0
+          this.activeElement.commonStyle.top = 0
           break
         case 'b':
-          this.dragInfo.y = subtract(canvasH - eleH)
+          this.activeElement.commonStyle.top = subtract(canvasH - eleH)
           break
         case 'l':
-          this.dragInfo.x = 0
+          this.activeElement.commonStyle.left = 0
           break
         case 'r':
-          this.dragInfo.x = subtract(canvasW - eleW)
+          this.activeElement.commonStyle.left = subtract(canvasW - eleW)
           break
         case 'tb':
-          this.dragInfo.y = ceil(divide(subtract(canvasH - eleH), 2), 2)
+          this.activeElement.commonStyle.top = ceil(divide(subtract(canvasH - eleH), 2), 2)
           break
         case 'lr':
-          this.dragInfo.x = ceil(divide(subtract(canvasW - eleW), 2), 2)
+          this.activeElement.commonStyle.left = ceil(divide(subtract(canvasW - eleW), 2), 2)
           break
+      }
+    },
+    /**
+			 * 初始化阴影编辑对象
+			 */
+    initBoxShadowEdit () {
+      const boxShadow = this.activeElement.commonStyle.boxShadow
+      let boxShadowEditConfig = {
+        h: 0,
+        v: 0,
+        blur: 0,
+        spread: 0,
+        color: '#000000'
+      }
+      if (!boxShadow || boxShadow === 'none') {
+        this.boxShadow = boxShadowEditConfig
+        return
+      }
+      const str = boxShadow.split(' ')
+
+      boxShadowEditConfig = {
+        h: parseInt(str[0].replace('px', '')),
+        v: parseInt(str[1].replace('px', '')),
+        blur: parseInt(str[2].replace('px', '')),
+        spread: parseInt(str[3].replace('px', '')),
+        color: str[4]
+      }
+      this.boxShadow = boxShadowEditConfig
+    },
+    boxShadowChange () {
+      const str = `${this.boxShadow.h}px ${this.boxShadow.v}px  ${this.boxShadow.blur}px  ${this.boxShadow.spread}px  ${this.boxShadow.color}`
+      this.activeElement.commonStyle.boxShadow = str
+    },
+    /**
+			 * 字体样式设置对齐方式
+			 * @param str
+			 */
+    handleTextAlignClick (str) {
+      this.activeElement.commonStyle.textAlign = str
+    },
+    /**
+			 * 字体样式设置对齐方式
+			 * @param str
+			 */
+    handleResizeClick (type) {
+      if (type.includes('w')) {
+        this.activeElement.commonStyle.left = 0
+        this.activeElement.commonStyle.width = this.$config.canvasH5Width
+      }
+      if (type.includes('h')) {
+        this.activeElement.commonStyle.top = 0
+        this.activeElement.commonStyle.height = this.$config.canvasH5Height
       }
     }
   }

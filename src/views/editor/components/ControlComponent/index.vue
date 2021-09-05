@@ -9,15 +9,15 @@
 <template>
   <div class="poster-editor-control poster-editor_deactivated-ignore">
     <portal-target name="widgetControl" class="control-target" />
-    <base-component />
+    <!-- <base-control /> -->
   </div>
 </template>
 
 <script>
-import BaseComponent from './base.vue'
+// import BaseControl from './base.vue'
 export default {
   components: {
-    BaseComponent
+    // BaseControl
   },
   data () {
     return {}
@@ -25,9 +25,9 @@ export default {
   methods: {}
 }
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .poster-editor-control {
-  width: 100%;
+  width: 250px;
   height: 100%;
   position: relative;
   .control-target {

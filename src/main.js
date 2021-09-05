@@ -12,12 +12,15 @@ import router from './router'
 import store from './store'
 
 import 'normalize.css/normalize.css'
+import '@/styles/index.less'
 
 import './plugins/element.js'
 
-import '@/styles/index.less'
+import PortalVue from 'portal-vue'
 
 Vue.config.productionTip = false
+
+Vue.use(PortalVue)
 
 new Vue({
   router,

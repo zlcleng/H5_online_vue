@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import $bus from '@/eventBus'
+// import $bus from '@/eventBus'
 export default {
   props: {
     url: {
@@ -45,7 +45,7 @@ export default {
     }
   },
   created () {
-    $bus.$on('select-image', this.changeIamge)
+    // $bus.$on('select-image', this.changeIamge)
     this.tempValue = this.url
   },
   watch: {
@@ -74,7 +74,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
   .component-image-select {
     width: 100px;
     height: 100px;

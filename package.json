@@ -18,6 +18,7 @@
     "less-loader": "^5.0.0",
     "lodash": "^4.17.21",
     "normalize.css": "^8.0.1",
+    "portal-vue": "^2.1.7",
     "vue": "^2.6.11",
     "vue-router": "^3.5.2",
     "vuedraggable": "^2.24.3",

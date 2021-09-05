@@ -16,18 +16,18 @@
       ondragstart="return false"
       @load="load"
     >
-    <!-- <portal v-if="isActive" :to="$data.$controlTarget">
+    <portal v-if="isActive" :to="$data.$controlTarget">
       <image-control :key="item.id" :item="item" />
-    </portal> -->
+    </portal>
   </div>
 </template>
 
 <script>
-// import imageControl from '../../control/widgets/imageControl'
+import imageControl from '../ControlComponent/imageControl'
 import { ImageWidget } from '@/constructor/widget'
 
 export default {
-  // components: { imageControl },
+  components: { imageControl },
   mixins: [ImageWidget.widgetMixin()],
   data () {
     return {}

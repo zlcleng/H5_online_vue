@@ -20,7 +20,9 @@ import {
   Dropdown,
   DropdownMenu,
   DropdownItem,
-  Scrollbar
+  Scrollbar,
+  Collapse,
+  CollapseItem
   // Message,
   // MessageBox
 } from 'element-ui'
@@ -45,7 +47,9 @@ const components = [
   Dropdown,
   DropdownMenu,
   DropdownItem,
-  Scrollbar
+  Scrollbar,
+  Collapse,
+  CollapseItem
   // Message,
   // MessageBox
 ]
