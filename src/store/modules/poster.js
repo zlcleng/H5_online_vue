@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-08-25 20:21:53
- * @LastEditTime: 2021-09-02 20:52:04
+ * @LastEditTime: 2021-09-06 13:02:05
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \h5_online_editor\src\store\modules\poster.js
@@ -181,7 +181,6 @@ const actions = {
         return
       }
     }
-    console.log(item, 'item')
     if (item instanceof Widget) {
       dispatch('history/push', null, { root: true })
       if (!(item instanceof CopiedWidget)) {

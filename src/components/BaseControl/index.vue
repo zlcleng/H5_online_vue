@@ -40,7 +40,7 @@
           </div>
         </div>
         <div class="attr-item-edit-wrapper">
-          <p class="attr-item-title">快捷resize：</p>
+          <p class="attr-item-title">快捷建：</p>
           <div class="sizeAndPosition-wrapper">
             <div class="align-type-item clearFlex" @click="handleResizeClick('wh')">
               <el-tooltip effect="dark" content="满屏" placement="bottom">
@@ -561,15 +561,16 @@ export default {
   }
 
   .attr-item-edit-wrapper {
-    padding-left: 18px;
+    padding-left: 10px;
     display: flex;
     width: 100%;
     text-align: center;
     padding-bottom: 10px;
     .attr-item-title {
-      text-align: left;
+      text-align: right;
       min-width: 60px;
       font-size: 12px;
+      margin: 0;
     }
     .attr-item-edit-input {
       &.col-2 {

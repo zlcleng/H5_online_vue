@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-08-25 18:53:05
- * @LastEditTime: 2021-09-01 18:50:00
+ * @LastEditTime: 2021-09-06 13:12:54
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \h5_online_editor\src\layout\components\UserInfo\index.vue
@@ -34,6 +34,7 @@
       </el-dropdown-menu>
     </el-dropdown>
     <div v-else class="inline-block">
+      <el-button type="success" @click="exportPoster">下载图片</el-button>
       <!-- <span class="login-btn" @click="goLogin">登录/注册</span> -->
     </div>
   </div>
@@ -43,6 +44,7 @@
 // import resetPassword from '@/components/reset-password'
 import userInfo from './user_info.vue'
 import userModel from '@/utils/userModel'
+import ExportActions from '@/utils/exports'
 
 export default {
   name: 'UserHeadBtn',
@@ -69,6 +71,10 @@ export default {
     },
     goLogin () {
       userModel.goLogin()
+    },
+    // 导出海报
+    exportPoster () {
+      ExportActions.exportPoster()
     }
   }
 }
@@ -80,6 +86,7 @@ export default {
     vertical-align: middle;
     line-height: 28px;
     cursor: pointer;
+    margin-right: 16px;
     .user-head-btn-img {
       display: inline-block;
       vertical-align: middle;

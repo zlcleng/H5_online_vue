@@ -1,6 +1,15 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-09-06 12:49:09
+ * @LastEditTime: 2021-09-07 19:51:27
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \H5_online_vue\src\views\editor\components\ControlComponent\imageControl.vue
+-->
 <template>
   <div class="image-control">
-    <el-collapse v-model="activeNames">
+    <base-control :drag-info="dragInfo" />
+    <!-- <el-collapse v-model="activeNames">
       <el-collapse-item name="position">
         <template #title>
           <div class="header">
@@ -9,7 +18,7 @@
         </template>
         <base-control :drag-info="dragInfo" />
       </el-collapse-item>
-    </el-collapse>
+    </el-collapse> -->
   </div>
 </template>
 
@@ -24,7 +33,6 @@ export default {
   mixins: [styleMixin],
   data () {
     return {
-      activeNames: ['image', 'position']
     }
   }
 }

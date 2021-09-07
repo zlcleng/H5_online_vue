@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-08-26 20:20:39
- * @LastEditTime: 2021-09-02 13:13:06
+ * @LastEditTime: 2021-09-07 20:37:03
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \h5_online_editor\src\constructor\widget\widget.js
@@ -21,7 +21,7 @@ const defaultWidgetConfig = () => {
     componentName: '', // 动态component的name
     icon: '', // 图标class
     wState: {}, // 组件内部状态数据，样式属性等信息
-    dragInfo: { w: 100, h: 100, x: 0, y: 0, rotateZ: 0 }, // 组件的位置、大小、旋转角度
+    dragInfo: { w: 100, h: 100, x: 0, y: 0, rotateZ: 0, borderWidth: 0, borderColor: '', borderStyle: '' }, // 组件的位置、大小、旋转角度
     rename: '', // typeLabel重命名
     lock: false, // 是否处于锁定状态
     visible: true, // 是否可见
@@ -451,15 +451,18 @@ export default class Widget {
     if (!dragInfo) {
       return null
     }
+    const { w, h, x, y, borderWidth, rotateZ, borderColor, borderStyle } = dragInfo
     const canvasSize = store.state.poster.canvasSize
     return {
       position: 'absolute',
-      width: (dragInfo.w / canvasSize.width) * 100 + '%',
-      height: (dragInfo.h / canvasSize.height) * 100 + '%',
-      // left: dragInfo.x + 'px',
-      left: (dragInfo.x / canvasSize.width) * 100 + '%',
-      top: (dragInfo.y / canvasSize.height) * 100 + '%',
-      transform: `rotateZ(${dragInfo.rotateZ}deg)`
+      width: (w / canvasSize.width) * 100 + '%',
+      height: (h / canvasSize.height) * 100 + '%',
+      left: (x / canvasSize.width) * 100 + '%',
+      top: (y / canvasSize.height) * 100 + '%',
+      transform: `rotateZ(${rotateZ}deg)`,
+      borderWidth: borderWidth + 'px',
+      borderColor,
+      borderStyle
     }
   }
 }

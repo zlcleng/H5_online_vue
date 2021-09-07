@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-01-18 10:05:59
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-09-02 19:26:35
+ * @LastEditTime: 2021-09-06 13:22:13
  * @FilePath: \vue_patient_follow\src\plugins\element.js
  */
 import Vue from 'vue'
@@ -12,6 +12,7 @@ import {
   Dialog,
   Button,
   Switch,
+  Select,
   Input,
   InputNumber,
   Upload,
@@ -22,7 +23,9 @@ import {
   DropdownItem,
   Scrollbar,
   Collapse,
-  CollapseItem
+  CollapseItem,
+  ColorPicker,
+  Option
   // Message,
   // MessageBox
 } from 'element-ui'
@@ -39,6 +42,7 @@ const components = [
   Dialog,
   Button,
   Switch,
+  Select,
   Input,
   InputNumber,
   Upload,
@@ -49,7 +53,9 @@ const components = [
   DropdownItem,
   Scrollbar,
   Collapse,
-  CollapseItem
+  CollapseItem,
+  ColorPicker,
+  Option
   // Message,
   // MessageBox
 ]
