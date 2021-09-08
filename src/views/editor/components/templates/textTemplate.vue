@@ -22,16 +22,21 @@
     >
       {{ text }}
     </div>
+    <portal v-if="isActive" :to="$data.$controlTarget">
+      <image-control :key="item.id" :item="item" />
+    </portal>
   </div>
 </template>
 
 <script>
 import { createNamespacedHelpers } from 'vuex'
 import { TextWidget } from '@/constructor/widget'
+import imageControl from '../ControlComponent/textControl'
 import { clickoutside } from '@/directives'
 const { mapState, mapActions } = createNamespacedHelpers('poster')
 
 export default {
+  components: { imageControl },
   directives: { clickoutside },
   mixins: [TextWidget.widgetMixin()],
   data () {
@@ -45,6 +50,7 @@ export default {
       return this.wState.text
     },
     textStyle () {
+      // console.log(this.textStyle)
       return this.wState.style
     }
   },

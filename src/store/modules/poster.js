@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-08-25 20:21:53
- * @LastEditTime: 2021-09-06 13:02:05
+ * @LastEditTime: 2021-09-08 20:39:46
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \h5_online_editor\src\store\modules\poster.js
@@ -129,6 +129,13 @@ const mutations = {
   },
   SET_UNSAVED_STATE (state, flag = false) {
     state.isUnsavedState = flag
+  },
+  // 设置某个组件的data
+  SET_WIDGET_CONFIG (state, { item, cb }) {
+    const target = state.posterItems.find(i => i.id === item.id)
+    if (target && cb) {
+      cb(target)
+    }
   }
 }
 
@@ -208,6 +215,7 @@ const actions = {
   },
   // 更新组件state
   updateWidgetState ({ state, dispatch }, { keyPath, value, widgetId, pushHistory = true }) {
+    console.log(state.posterItems, widgetId, 'widgetId')
     const widgetItem = state.posterItems.find(i => i.id === widgetId)
     if (widgetItem) {
       // 某些操作不添加进历史记录栈
@@ -228,6 +236,18 @@ const actions = {
   },
   replaceActiveItems ({ commit }, items) {
     commit('REPLACE_ACTIVE_ITEMS', items)
+  },
+  lockItem ({ commit, getters }, item) {
+    if (getters.activeItemIds.includes(item.id)) {
+      commit('REMOVE_ACTIVE_ITEM', item)
+    }
+    commit('SET_WIDGET_CONFIG', { item, cb: (i) => (i.lock = true) })
+  },
+  unlockItem ({ commit }, item) {
+    commit('SET_WIDGET_CONFIG', { item, cb: (i) => (i.lock = false) })
+  },
+  toggleItemVisible ({ commit }, { item, visible }) {
+    commit('SET_WIDGET_CONFIG', { item, cb: (i) => (i.visible = !!visible) })
   },
   // 更新组件位置、大小等
   updateDragInfo ({ state }, { dragInfo, widgetId, updateSelfOnly = false }) {

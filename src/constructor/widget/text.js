@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-09-02 19:51:30
- * @LastEditTime: 2021-09-02 19:59:35
+ * @LastEditTime: 2021-09-08 20:36:30
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \H5_online_vue\src\constructor\widget\text.js
@@ -46,16 +46,22 @@ export default class TextWidget extends Widget {
           color: '#000',
           textAlign: 'center',
           fontSize: '14px', // px
-          padding: 0, // px
+          paddingTop: 0,
+          paddingLeft: 0,
+          paddingBottom: 0,
+          paddingRight: 0,
           borderColor: '#000',
           borderWidth: 0, // px
           borderStyle: 'solid',
+          borderRadius: 0,
+          boxShadow: '',
           lineHeight: '100%', // %
           letterSpacing: 0, // %
           backgroundColor: '',
           fontWeight: '',
           fontStyle: '',
-          textDecoration: ''
+          textDecoration: '',
+          opacity: 1
         }
       }
     }, config)

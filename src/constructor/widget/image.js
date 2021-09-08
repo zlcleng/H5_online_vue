@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-08-31 20:33:35
- * @LastEditTime: 2021-09-02 19:59:40
+ * @LastEditTime: 2021-09-08 13:37:02
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \h5_online_editor\src\constructor\widget\image.js
@@ -17,6 +17,7 @@ function codeGen (config) {
       src: config.wState.src
     },
     style: {
+      ...config.wState.style,
       ...Widget.getPositionStyle(config.dragInfo)
     }
   })
@@ -33,7 +34,8 @@ export default class ImageWidget extends Widget {
       lock: false,
       visible: true,
       wState: {
-        src: ''
+        src: '',
+        style: {}
       }
     }, config)
     super(config)

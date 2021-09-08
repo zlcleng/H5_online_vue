@@ -1,14 +1,14 @@
 <!--
  * @Author: your name
  * @Date: 2021-09-06 12:49:09
- * @LastEditTime: 2021-09-07 19:51:27
+ * @LastEditTime: 2021-09-08 19:59:05
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \H5_online_vue\src\views\editor\components\ControlComponent\imageControl.vue
 -->
 <template>
   <div class="image-control">
-    <base-control :drag-info="dragInfo" />
+    <base-control :drag-info="dragInfo" @changeStyle="changeStyle" />
     <!-- <el-collapse v-model="activeNames">
       <el-collapse-item name="position">
         <template #title>
@@ -33,6 +33,11 @@ export default {
   mixins: [styleMixin],
   data () {
     return {
+    }
+  },
+  methods: {
+    changeStyle ({ type, value }) {
+      this.updateStyle(type, value)
     }
   }
 }

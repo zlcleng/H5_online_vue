@@ -110,13 +110,14 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+@import '~@/styles/mixin.less';
 .panel-item {
   box-sizing: border-box;
   padding: 0 20px;
   height: 36px;
   display: flex;
   align-items: center;
-  @include no-wrap;
+  .no-wrap();
   font-size: 14px;
   background-color: #252930;
   border-bottom: 1px solid #1d2024;
@@ -143,7 +144,7 @@ export default {
   .name {
     width: 1px;
     flex: 1;
-    @include no-wrap;
+    .no-wrap();
   }
   .handle {
     margin-left: 20px;

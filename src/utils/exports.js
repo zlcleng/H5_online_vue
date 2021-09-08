@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-08-26 17:43:09
- * @LastEditTime: 2021-09-02 13:30:53
+ * @LastEditTime: 2021-09-08 20:22:17
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \h5_online_editor\src\utils\exports.js
@@ -52,7 +52,6 @@ export default class ExportActions {
   }
   static exportPoster () {
     const allWidgets = getAllWidgets()
-    console.log(store.state)
     const background = store.state.poster.background
     const backgroundHtml = background._codeGen(background, 'poster')
     const canvasSize = store.state.poster.canvasSize
@@ -62,11 +61,13 @@ export default class ExportActions {
         return
       }
       if (item._codeGen) {
+        console.log(item)
         bodyInnerHtml += item._codeGen(item) || ''
       } else if (process.env.NODE_ENV !== 'production') {
         console.warn(`类型为${item.type}的组件的构造函数未实现"_codeGen"方法`)
       }
     })
+    console.log(bodyInnerHtml)
     const containerNode = createDom({
       tag: 'div',
       style: {
@@ -83,7 +84,7 @@ export default class ExportActions {
     containerNode.appendChild(bodyInnerNode)
     // document.body.appendChild(containerNode)
     domToImg(containerNode, { width: canvasSize.width, height: canvasSize.height }).then(res => {
-      saveAs(base64ToBlob(res.src), 'poster.png')
+      saveAs(base64ToBlob(res.src), '图片.png')
     })
   }
 }

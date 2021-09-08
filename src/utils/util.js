@@ -1,12 +1,34 @@
 /*
  * @Author: your name
  * @Date: 2021-08-26 17:44:39
- * @LastEditTime: 2021-08-26 17:47:23
+ * @LastEditTime: 2021-09-08 20:24:01
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \h5_online_editor\src\utils\util.js
  */
 import html2canvas from 'html2canvas'
+
+// style属性片段
+const styleFragment = {
+  button: {
+    height: '36px',
+    boxSizing: 'border-box',
+    padding: '0 8px',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+    border: 'none'
+  },
+  noWrap: {
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+    paddingTop: '1px'
+  },
+  _defaultStyle: {
+    boxSizing: 'border-box'
+  }
+}
 
 /**
  * 根据nodeObj生成dom结构
