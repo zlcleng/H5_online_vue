@@ -185,7 +185,7 @@
         </div>
         <!--外边距-->
       </el-collapse-item>
-      <el-collapse-item title="阴影样式：" name="3">
+      <!-- <el-collapse-item title="阴影样式：" name="3">
         <div class="attr-item-edit-wrapper">
           <p class="attr-item-title">阴影位置：</p>
           <div class="col-2 attr-item-edit-input">
@@ -218,91 +218,7 @@
             <el-color-picker v-model="boxShadow.color" size="mini" />
           </div>
         </div>
-      </el-collapse-item>
-      <el-collapse-item title="字体：" name="4">
-        <div class="attr-item-edit-wrapper">
-          <p class="attr-item-title">字体大小：</p>
-          <div class="col-2 attr-item-edit-input">
-            <el-input-number
-              v-model="styleInfo.fontSize"
-              size="mini"
-              controls-position="right"
-              :min="0"
-              @change="updateInfoStyle('fontSize', styleInfo.fontSize + 'px')"
-            />
-          </div>
-        </div>
-        <div class="attr-item-edit-wrapper">
-          <p class="attr-item-title">字体粗细：</p>
-          <div class="col-2 attr-item-edit-input">
-            <el-input-number
-              v-model="styleInfo.fontWeight"
-              size="mini"
-              controls-position="right"
-              :min="300"
-              :step="100"
-              :max="900"
-              @change="updateInfoStyle('fontWeight', styleInfo.fontWeight)"
-            />
-          </div>
-        </div>
-        <div class="attr-item-edit-wrapper">
-          <p class="attr-item-title">行间距：</p>
-          <div class="col-2 attr-item-edit-input">
-            <el-input-number
-              v-model="styleInfo.lineHeight"
-              size="mini"
-              controls-position="right"
-              :min="0"
-              :step="0.1"
-              @change="updateInfoStyle('lineHeight', styleInfo.lineHeight)"
-            />
-          </div>
-        </div>
-        <div class="attr-item-edit-wrapper">
-          <p class="attr-item-title">字间距：</p>
-          <div class="col-2 attr-item-edit-input">
-            <el-input-number
-              v-model="styleInfo.letterSpacing"
-              size="mini"
-              controls-position="right"
-              :min="0"
-              @change="updateInfoStyle('letterSpacing', styleInfo.letterSpacing + 'px')"
-            />
-          </div>
-        </div>
-        <div class="attr-item-edit-wrapper">
-          <p class="attr-item-title">对齐方式：</p>
-          <div class="sizeAndPosition-wrapper">
-            <div class="align-type-item clearFlex" @click="updateInfoStyle('textAlign', 'left')">
-              <el-tooltip effect="dark" content="左对齐" placement="bottom">
-                <i class="iconfont icon-textzuoduiqi" />
-              </el-tooltip>
-            </div>
-            <div class="align-type-item clearFlex" @click="updateInfoStyle('textAlign', 'center')">
-              <el-tooltip effect="dark" content="居中对齐" placement="bottom">
-                <i class="iconfont icon-juzhongduiqi" />
-              </el-tooltip>
-            </div>
-            <div class="align-type-item clearFlex" @click="updateInfoStyle('textAlign', 'right')">
-              <el-tooltip effect="dark" content="右对齐" placement="bottom">
-                <i class="iconfont icon-textyouduiqi" />
-              </el-tooltip>
-            </div>
-          </div>
-        </div>
-
-        <div class="attr-item-edit-wrapper">
-          <p class="attr-item-title">字体颜色：</p>
-          <div class="attr-item-edit-input">
-            <el-color-picker
-              v-model="styleInfo.color"
-              size="mini"
-              @change="updateInfoStyle('color', styleInfo.color)"
-            />
-          </div>
-        </div>
-      </el-collapse-item>
+      </el-collapse-item> -->
       <el-collapse-item title="背景&&透明度：" name="5">
         <div class="attr-item-edit-wrapper">
           <p class="attr-item-title">背景颜色：</p>
@@ -315,12 +231,12 @@
             />
           </div>
         </div>
-        <div class="attr-item-edit-wrapper">
+        <!-- <div class="attr-item-edit-wrapper">
           <p class="attr-item-title">背景图片：</p>
           <div class="attr-item-edit-input">
             <image-select :url.sync="styleInfo.backgroundImage" @change="updateInfoStyle('backgroundImage', styleInfo.backgroundImage)" />
           </div>
-        </div>
+        </div> -->
 
         <div class="attr-item-edit-wrapper">
           <p class="attr-item-title">透明度：</p>
@@ -344,13 +260,13 @@
 <script>
 import { createNamespacedHelpers } from 'vuex'
 import { ceil, subtract, divide } from 'lodash'
-import { ImageSelect } from '@/components'
+// import { ImageSelect } from '@/components'
 
 const { mapState } = createNamespacedHelpers('poster')
 
 export default {
   components: {
-    ImageSelect
+    // ImageSelect
   },
   props: {
     dragInfo: {

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-08-25 18:53:05
- * @LastEditTime: 2021-09-06 13:12:54
+ * @LastEditTime: 2021-09-16 13:19:02
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \h5_online_editor\src\layout\components\UserInfo\index.vue
@@ -34,6 +34,7 @@
       </el-dropdown-menu>
     </el-dropdown>
     <div v-else class="inline-block">
+      <el-button type="primary" @click="savePoster">保存</el-button>
       <el-button type="success" @click="exportPoster">下载图片</el-button>
       <!-- <span class="login-btn" @click="goLogin">登录/注册</span> -->
     </div>
@@ -41,10 +42,13 @@
 </template>
 
 <script>
+import { createNamespacedHelpers } from 'vuex'
 // import resetPassword from '@/components/reset-password'
 import userInfo from './user_info.vue'
 import userModel from '@/utils/userModel'
 import ExportActions from '@/utils/exports'
+
+const { mapState } = createNamespacedHelpers('poster')
 
 export default {
   name: 'UserHeadBtn',
@@ -58,6 +62,9 @@ export default {
     }
   },
   computed: {
+    ...mapState([
+      'posterItems'
+    ]),
     isLogined () {
       return this.$store.state.user.access_token
     },
@@ -75,6 +82,11 @@ export default {
     // 导出海报
     exportPoster () {
       ExportActions.exportPoster()
+    },
+    // 保存编辑， 以便下次打开使用
+    savePoster () {
+      console.log(this.posterItems)
+      localStorage.setItem('mj_online_data', JSON.stringify(this.posterItems))
     }
   }
 }

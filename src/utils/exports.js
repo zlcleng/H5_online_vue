@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-08-26 17:43:09
- * @LastEditTime: 2021-09-08 20:22:17
+ * @LastEditTime: 2021-09-09 12:55:11
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \h5_online_editor\src\utils\exports.js
@@ -82,6 +82,7 @@ export default class ExportActions {
     bodyInnerNode.innerHTML = bodyInnerHtml
     containerNode.appendChild(backgroundNode)
     containerNode.appendChild(bodyInnerNode)
+    console.log(containerNode)
     // document.body.appendChild(containerNode)
     domToImg(containerNode, { width: canvasSize.width, height: canvasSize.height }).then(res => {
       saveAs(base64ToBlob(res.src), '图片.png')

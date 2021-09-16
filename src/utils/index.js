@@ -1,5 +1,6 @@
-import html2canvas from 'html2canvas'
-
+// import html2canvas from 'html2canvas'
+import html2canvas from '@/plugins/html2canvas'
+// import html2canvas from 'https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.3/dist/html2canvas.js'
 /**
  * 获取随机字符串
  * @returns {String}

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-08-25 20:21:53
- * @LastEditTime: 2021-09-08 20:39:46
+ * @LastEditTime: 2021-09-16 13:35:23
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \h5_online_editor\src\store\modules\poster.js
@@ -9,6 +9,8 @@
 import { Message } from 'element-ui'
 import { BackgroundWidget, Widget, CopiedWidget } from '@/constructor/widget'
 import { set } from 'lodash'
+
+const lastPosterItems = localStorage.getItem('mj_online_data')
 
 const background = new BackgroundWidget({
   backgroundColor: '#fff',
@@ -27,7 +29,7 @@ const state = {
   },
   background,
   mainPanelScrollY: 0,
-  posterItems: [], // 组件列表
+  posterItems: lastPosterItems ? JSON.parse(lastPosterItems) : [], // 组件列表
   activeItems: [], // 当前选中的组件
   layerPanelOpened: true, // 是否打开图层面板
   referenceLineOpened: true, // 是否打开参考线
@@ -215,7 +217,6 @@ const actions = {
   },
   // 更新组件state
   updateWidgetState ({ state, dispatch }, { keyPath, value, widgetId, pushHistory = true }) {
-    console.log(state.posterItems, widgetId, 'widgetId')
     const widgetItem = state.posterItems.find(i => i.id === widgetId)
     if (widgetItem) {
       // 某些操作不添加进历史记录栈

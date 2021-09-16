@@ -1,14 +1,14 @@
 /*
  * @Author: your name
  * @Date: 2021-08-26 17:44:39
- * @LastEditTime: 2021-09-09 13:40:52
+ * @LastEditTime: 2021-09-16 13:09:17
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \h5_online_editor\src\utils\util.js
  */
 // html2canvas 阴影无法截图
-// import html2canvas from 'html2canvas'
 import html2canvas from '@/plugins/html2canvas'
+// import html2canvas from 'https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.3/dist/html2canvas.js' // '@/plugins/html2canvas1'
 
 // style属性片段
 const styleFragment = {

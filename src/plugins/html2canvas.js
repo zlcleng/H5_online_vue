@@ -8,7 +8,6 @@
     typeof define === 'function' && define.amd ? define(factory) :
     (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.html2canvas = factory());
 }(this, (function () { 'use strict';
-
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
 
@@ -7150,14 +7149,23 @@
             });
         };
         CanvasRenderer.prototype.mask = function (paths) {
+            var x=this.options.x,y=this.options.y;
             this.ctx.beginPath();
-            this.ctx.moveTo(0, 0);
-            this.ctx.lineTo(this.canvas.width, 0);
-            this.ctx.lineTo(this.canvas.width, this.canvas.height);
-            this.ctx.lineTo(0, this.canvas.height);
-            this.ctx.lineTo(0, 0);
+            this.ctx.moveTo(x, y);
+            this.ctx.lineTo(this.canvas.width+x, y);
+            this.ctx.lineTo(this.canvas.width+x, this.canvas.height+y);
+            this.ctx.lineTo(x, this.canvas.height+y);
+            this.ctx.lineTo(x, y);
             this.formatPath(paths.slice(0).reverse());
             this.ctx.closePath();
+            // this.ctx.beginPath();
+            // this.ctx.moveTo(0, 0);
+            // this.ctx.lineTo(this.canvas.width, 0);
+            // this.ctx.lineTo(this.canvas.width, this.canvas.height);
+            // this.ctx.lineTo(0, this.canvas.height);
+            // this.ctx.lineTo(0, 0);
+            // this.formatPath(paths.slice(0).reverse());
+            // this.ctx.closePath();
         };
         CanvasRenderer.prototype.path = function (paths) {
             this.ctx.beginPath();
@@ -7381,7 +7389,6 @@
                                 .slice(0)
                                 .reverse()
                                 .forEach(function (shadow) {
-                                    console.log(shadow, 'shadow')
                                 _this.ctx.save();
                                 var borderBoxArea = calculateBorderBoxPath(paint.curves);
                                 var maskOffset = shadow.inset ? 0 : MASK_OFFSET;
@@ -7396,7 +7403,7 @@
                                     _this.ctx.clip();
                                     _this.path(shadowPaintingArea);
                                 }
-                                _this.ctx.shadowOffsetX = shadow.offsetX.number + maskOffset;
+                                _this.ctx.shadowOffsetX = shadow.offsetX.number + maskOffset*window.devicePixelRatio;
                                 _this.ctx.shadowOffsetY = shadow.offsetY.number;
                                 _this.ctx.shadowColor = asString(shadow.color);
                                 _this.ctx.shadowBlur = shadow.blur.number;

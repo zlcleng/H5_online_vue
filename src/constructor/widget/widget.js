@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-08-26 20:20:39
- * @LastEditTime: 2021-09-08 19:39:19
+ * @LastEditTime: 2021-09-16 13:34:05
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \h5_online_editor\src\constructor\widget\widget.js
@@ -192,7 +192,7 @@ export default class Widget {
         onResize (x, y, w, h) {
           if (!this.resizing) {
             this.resizing = true
-            store.dispatch('poster/history/push', null, { root: true })
+            store.dispatch('history/push', null, { root: true })
           }
           this.updateDragInfo({ x, y, w, h })
           dragItemPosition[this.item.id] = this.dragInfo
@@ -204,7 +204,7 @@ export default class Widget {
         onDrag (x, y, e) {
           if (!this.moving) {
             this.moving = true
-            store.dispatch('poster/history/push', null, { root: true })
+            store.dispatch('history/push', null, { root: true })
           }
           // ctrl快捷键拖动复制
           if (!hasCopiedOnDrag && e && e.ctrlKey) {
@@ -323,7 +323,7 @@ export default class Widget {
         onRotate (e) {
           if (!this.rotating) {
             this.rotating = true
-            store.dispatch('poster/history/push', null, { root: true })
+            store.dispatch('history/push', null, { root: true })
           }
           this.updateDragInfo({ rotateZ: (e > 0 ? e : 360 + e) % 360 })
         },
