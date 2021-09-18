@@ -94,97 +94,6 @@
         </div> -->
       </el-collapse-item>
 
-      <el-collapse-item title="边框边距：" name="2">
-        <!--边框-->
-        <div class="attr-item-edit-wrapper">
-          <p class="attr-item-title">边框：</p>
-          <div class="col-2 attr-item-edit-input">
-            <el-input-number
-              v-model="styleInfo.borderWidth"
-              size="mini"
-              controls-position="right"
-              :min="0"
-              @change="updateInfoStyle('borderWidth', styleInfo.borderWidth + 'px')"
-            />
-            <div class="attr-item-edit-input-des">尺寸</div>
-          </div>
-          <div class="col-3 attr-item-edit-input">
-            <el-color-picker
-              v-model="styleInfo.borderColor"
-              size="mini"
-              @change="updateInfoStyle('borderColor', styleInfo.borderColor)"
-            />
-            <div class="attr-item-edit-input-des">颜色</div>
-          </div>
-          <div class="col-2 attr-item-edit-input">
-            <el-select
-              v-model="styleInfo.borderStyle"
-              size="mini"
-              @change="updateInfoStyle('borderStyle', styleInfo.borderStyle)"
-            >
-              <el-option v-for="item in borderStyleList" :key="item.value" :label="item.label" :value="item.value" />
-            </el-select>
-            <div class="attr-item-edit-input-des">样式</div>
-          </div>
-        </div>
-        <div class="attr-item-edit-wrapper">
-          <p class="attr-item-title">边框圆弧：</p>
-          <div class="col-2 attr-item-edit-input">
-            <el-input-number
-              v-model="styleInfo.borderRadius"
-              size="mini"
-              controls-position="right"
-              :min="0"
-              @change="updateInfoStyle('borderRadius', styleInfo.borderRadius + 'px')"
-            />
-          </div>
-        </div>
-        <!--边距-->
-
-        <div class="attr-item-edit-wrapper">
-          <p class="attr-item-title">上下边距：</p>
-          <div class="col-2 attr-item-edit-input">
-            <el-input-number
-              v-model="styleInfo.paddingTop"
-              size="mini"
-              controls-position="right"
-              :min="0"
-              @change="updateInfoStyle('paddingTop', styleInfo.paddingTop + 'px')"
-            />
-          </div>
-          <div class="col-2 attr-item-edit-input">
-            <el-input-number
-              v-model="styleInfo.paddingBottom"
-              size="mini"
-              controls-position="right"
-              :min="0"
-              @change="updateInfoStyle('paddingBottom', styleInfo.paddingBottom + 'px')"
-            />
-          </div>
-        </div>
-        <div class="attr-item-edit-wrapper">
-          <p class="attr-item-title">左右边距：</p>
-          <div class="col-2 attr-item-edit-input">
-            <el-input-number
-              v-model="styleInfo.paddingLeft"
-              size="mini"
-              controls-position="right"
-              :min="0"
-              @change="updateInfoStyle('paddingLeft', styleInfo.paddingLeft + 'px')"
-            />
-          </div>
-          <div class="col-2 attr-item-edit-input">
-            <el-input-number
-              v-model="styleInfo.paddingRight"
-              size="mini"
-              controls-position="right"
-              :min="0"
-              @change="updateInfoStyle('paddingRight', styleInfo.paddingRight + 'px')"
-            />
-          </div>
-        </div>
-        <!--外边距-->
-      </el-collapse-item>
       <!-- <el-collapse-item title="阴影样式：" name="3">
         <div class="attr-item-edit-wrapper">
           <p class="attr-item-title">阴影位置：</p>
@@ -219,40 +128,6 @@
           </div>
         </div>
       </el-collapse-item> -->
-      <el-collapse-item title="背景&&透明度：" name="5">
-        <div class="attr-item-edit-wrapper">
-          <p class="attr-item-title">背景颜色：</p>
-          <div class="attr-item-edit-input no-top">
-            <el-color-picker
-              v-model="styleInfo.backgroundColor"
-              size="mini"
-              :show-alpha="true"
-              @change="updateInfoStyle('backgroundColor', styleInfo.backgroundColor)"
-            />
-          </div>
-        </div>
-        <!-- <div class="attr-item-edit-wrapper">
-          <p class="attr-item-title">背景图片：</p>
-          <div class="attr-item-edit-input">
-            <image-select :url.sync="styleInfo.backgroundImage" @change="updateInfoStyle('backgroundImage', styleInfo.backgroundImage)" />
-          </div>
-        </div> -->
-
-        <div class="attr-item-edit-wrapper">
-          <p class="attr-item-title">透明度：</p>
-          <div class="col-2 attr-item-edit-input">
-            <el-input-number
-              v-model="styleInfo.opacity"
-              size="mini"
-              controls-position="right"
-              :min="0"
-              :max="1"
-              :step="0.1"
-              @change="updateInfoStyle('opacity', styleInfo.opacity)"
-            />
-          </div>
-        </div>
-      </el-collapse-item>
     </el-collapse>
   </div>
 </template>
@@ -273,6 +148,10 @@ export default {
       type: Object,
       default: () => {},
       require: true
+    },
+    dragStyle: {
+      type: Object,
+      default: () => {}
     }
   },
   data () {
@@ -305,19 +184,6 @@ export default {
       }],
       styleInfo: {},
       // 'none', 'solid', 'dashed', 'dotted', 'double'
-      borderStyleList: [{
-        label: '实线',
-        value: 'solid'
-      }, {
-        label: '虚线',
-        value: 'dashed'
-      }, {
-        label: '点状',
-        value: 'dotted'
-      }, {
-        label: '双线',
-        value: 'double'
-      }],
       boxShadow: {
         h: 0,
         v: 0,
@@ -336,16 +202,28 @@ export default {
       },
       deep: true
     }
+    // dragStyle: {
+    //   handler (val) {
+    //     console.log(val, 'vasl')
+    //     this.styleInfo = val
+    //   },
+    //   deep: true,
+    //   immediate: true
+    // }
   },
   computed: {
     ...mapState({
-      canvasWidth: (state) => state.canvasSize.width,
-      canvasHeight: (state) => state.canvasSize.height
+      posterItems: state => state.posterItems,
+      canvasWidth: state => state.canvasSize.width,
+      canvasHeight: state => state.canvasSize.height
     })
     // styleInfo () {
     //   console.log(this.style)
     //   return JSON.parse(JSON.stringify(this.style || {}))
     // }
+  },
+  mounted () {
+    this.styleInfo = Object.assign({}, this.dragStyle)
   },
   methods: {
     // 调整位置
@@ -437,43 +315,31 @@ export default {
       min-width: 60px;
       font-size: 12px;
     }
-    .attr-item-edit-input {
-      &.col-2 {
-        width: 90px;
-        margin-left: 10px;
-      }
-      &.col-1 {
-        width: 250px;
-      }
-      &.col-3 {
-        width: 60px;
-        margin-left: 10px;
-      }
-      &.col-4 {
-        width: 50px;
-        margin-left: 10px;
-      }
-      .attr-item-edit-input-des {
-        text-align: center;
-        line-height: 1;
-        margin-top: 2px;
-        font-size: 12px;
-        color: #ccc;
-      }
-    }
+    // .attr-item-edit-input {
+    //   &.col-2 {
+    //     width: 90px;
+    //     margin-left: 10px;
+    //   }
+    //   &.col-1 {
+    //     width: 250px;
+    //   }
+    //   &.col-3 {
+    //     width: 60px;
+    //     margin-left: 10px;
+    //   }
+    //   &.col-4 {
+    //     width: 50px;
+    //     margin-left: 10px;
+    //   }
+    //   .attr-item-edit-input-des {
+    //     text-align: center;
+    //     line-height: 1;
+    //     margin-top: 2px;
+    //     font-size: 12px;
+    //     color: #ccc;
+    //   }
+    // }
   }
-  /deep/ .attr-item-edit-wrapper {
-    .el-input-number.is-controls-right .el-input__inner {
-      padding-left: 2px;
-      padding-right: 32px;
-      width: 90px;
-    }
-    .el-input-number--mini {
-      width: 90px;
-    }
-    .el-slider__runway.show-input {
-      margin-right: 108px;
-    }
-  }
+
 </style>
 

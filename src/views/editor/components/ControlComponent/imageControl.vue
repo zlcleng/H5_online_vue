@@ -1,14 +1,14 @@
 <!--
  * @Author: your name
  * @Date: 2021-09-06 12:49:09
- * @LastEditTime: 2021-09-08 19:59:05
+ * @LastEditTime: 2021-09-17 13:15:33
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \H5_online_vue\src\views\editor\components\ControlComponent\imageControl.vue
 -->
 <template>
   <div class="image-control">
-    <base-control :drag-info="dragInfo" @changeStyle="changeStyle" />
+    <base-control :drag-info="dragInfo" :drag-style="style" @changeStyle="changeStyle" />
     <!-- <el-collapse v-model="activeNames">
       <el-collapse-item name="position">
         <template #title>

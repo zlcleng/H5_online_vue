@@ -1,6 +1,7 @@
 <template>
   <div class="text-control">
-    <base-control :drag-info="dragInfo" @changeStyle="changeStyle" />
+    <base-control :drag-style="styleInfo" :drag-info="dragInfo" @changeStyle="changeStyle" />
+
     <el-collapse>
       <el-collapse-item title="字体：" name="4">
         <div class="attr-item-edit-wrapper">
@@ -86,86 +87,132 @@
           </div>
         </div>
       </el-collapse-item>
+      <el-collapse-item title="边框边距：" name="2">
+        <!--边框-->
+        <div class="attr-item-edit-wrapper">
+          <p class="attr-item-title">边框：</p>
+          <div class="col-2 attr-item-edit-input">
+            <el-input-number
+              v-model="styleInfo.borderWidth"
+              size="mini"
+              controls-position="right"
+              :min="0"
+              @change="updateInfoStyle('borderWidth', styleInfo.borderWidth + 'px')"
+            />
+            <div class="attr-item-edit-input-des">尺寸</div>
+          </div>
+          <div class="col-3 attr-item-edit-input">
+            <el-color-picker
+              v-model="styleInfo.borderColor"
+              size="mini"
+              @change="updateInfoStyle('borderColor', styleInfo.borderColor)"
+            />
+            <div class="attr-item-edit-input-des">颜色</div>
+          </div>
+          <div class="col-2 attr-item-edit-input">
+            <el-select
+              v-model="styleInfo.borderStyle"
+              size="mini"
+              @change="updateInfoStyle('borderStyle', styleInfo.borderStyle)"
+            >
+              <el-option v-for="item in borderStyleList" :key="item.value" :label="item.label" :value="item.value" />
+            </el-select>
+            <div class="attr-item-edit-input-des">样式</div>
+          </div>
+        </div>
+        <div class="attr-item-edit-wrapper">
+          <p class="attr-item-title">边框圆弧：</p>
+          <div class="col-2 attr-item-edit-input">
+            <el-input-number
+              v-model="styleInfo.borderRadius"
+              size="mini"
+              controls-position="right"
+              :min="0"
+              @change="updateInfoStyle('borderRadius', styleInfo.borderRadius + 'px')"
+            />
+          </div>
+        </div>
+        <!--边距-->
+
+        <div class="attr-item-edit-wrapper">
+          <p class="attr-item-title">上下边距：</p>
+          <div class="col-2 attr-item-edit-input">
+            <el-input-number
+              v-model="styleInfo.paddingTop"
+              size="mini"
+              controls-position="right"
+              :min="0"
+              @change="updateInfoStyle('paddingTop', styleInfo.paddingTop + 'px')"
+            />
+          </div>
+          <div class="col-2 attr-item-edit-input">
+            <el-input-number
+              v-model="styleInfo.paddingBottom"
+              size="mini"
+              controls-position="right"
+              :min="0"
+              @change="updateInfoStyle('paddingBottom', styleInfo.paddingBottom + 'px')"
+            />
+          </div>
+        </div>
+        <div class="attr-item-edit-wrapper">
+          <p class="attr-item-title">左右边距：</p>
+          <div class="col-2 attr-item-edit-input">
+            <el-input-number
+              v-model="styleInfo.paddingLeft"
+              size="mini"
+              controls-position="right"
+              :min="0"
+              @change="updateInfoStyle('paddingLeft', styleInfo.paddingLeft + 'px')"
+            />
+          </div>
+          <div class="col-2 attr-item-edit-input">
+            <el-input-number
+              v-model="styleInfo.paddingRight"
+              size="mini"
+              controls-position="right"
+              :min="0"
+              @change="updateInfoStyle('paddingRight', styleInfo.paddingRight + 'px')"
+            />
+          </div>
+        </div>
+        <!--外边距-->
+      </el-collapse-item>
+      <el-collapse-item title="背景&&透明度：" name="5">
+        <div class="attr-item-edit-wrapper">
+          <p class="attr-item-title">背景颜色：</p>
+          <div class="attr-item-edit-input no-top">
+            <el-color-picker
+              v-model="styleInfo.backgroundColor"
+              size="mini"
+              :show-alpha="true"
+              @change="updateInfoStyle('backgroundColor', styleInfo.backgroundColor)"
+            />
+          </div>
+        </div>
+        <!-- <div class="attr-item-edit-wrapper">
+          <p class="attr-item-title">背景图片：</p>
+          <div class="attr-item-edit-input">
+            <image-select :url.sync="styleInfo.backgroundImage" @change="updateInfoStyle('backgroundImage', styleInfo.backgroundImage)" />
+          </div>
+        </div> -->
+
+        <div class="attr-item-edit-wrapper">
+          <p class="attr-item-title">透明度：</p>
+          <div class="col-2 attr-item-edit-input">
+            <el-input-number
+              v-model="styleInfo.opacity"
+              size="mini"
+              controls-position="right"
+              :min="0"
+              :max="1"
+              :step="0.1"
+              @change="updateInfoStyle('opacity', styleInfo.opacity)"
+            />
+          </div>
+        </div>
+      </el-collapse-item>
     </el-collapse>
-    <!-- <el-collapse v-model="activeNames">
-      <el-collapse-item name="text">
-        <template #title>
-          <div class="header">
-            文字
-          </div>
-        </template>
-        <setting-content>
-          <setting-row>
-            <template #left>
-              <setting-item label="颜色">
-                <el-color-picker v-model="inColor" size="small" />
-              </setting-item>
-            </template>
-            <template #right>
-              <setting-item label="字号">
-                <input v-model.number="inFontSize" type="number">
-              </setting-item>
-            </template>
-          </setting-row>
-          <setting-item label="对齐方式">
-            <radio-group v-model="inTextAlign" :list="textAlignList">
-              <template #left>
-                <i class="icon-align-left" />
-              </template>
-              <template #center>
-                <i class="icon-align-center" />
-              </template>
-              <template #right>
-                <i class="icon-align-right" />
-              </template>
-            </radio-group>
-          </setting-item>
-          <setting-row>
-            <template #left>
-              <setting-item label="行间距">
-                <input v-model.number="inLineHeight" type="number">
-              </setting-item>
-            </template>
-            <template #right>
-              <setting-item label="字间距">
-                <input v-model.number="inLetterSpacing" type="number">
-              </setting-item>
-            </template>
-          </setting-row>
-          <setting-item label="格式">
-            <radio-group v-model="inTextFormat" :list="textFotmatList" />
-          </setting-item>
-        </setting-content>
-      </el-collapse-item>
-      <el-collapse-item name="borderAndBackground">
-        <template #title>
-          <div class="header">边框和背景</div>
-        </template>
-        <setting-content>
-          <setting-item label="背景颜色">
-            <el-color-picker v-model="inBackgroundColor" size="small" />
-          </setting-item>
-          <setting-item label="内边距">
-            <input v-model.number="inPadding" type="number">
-          </setting-item>
-          <setting-item label="边框颜色、宽度">
-            <el-color-picker v-model="inBorderColor" size="small" />
-            <input v-model.number="inBorderWidth" type="number">
-          </setting-item>
-          <setting-item label="边框样式">
-            <radio-group v-model="inBorderStyle" :list="borderStyleList" />
-          </setting-item>
-        </setting-content>
-      </el-collapse-item>
-      <el-collapse-item name="position">
-        <template #title>
-          <div class="header">
-            位置
-          </div>
-        </template>
-        <position-control :drag-info="dragInfo" />
-      </el-collapse-item>
-    </el-collapse> -->
   </div>
 </template>
 
@@ -180,24 +227,20 @@ export default {
   mixins: [styleMixin],
   data () {
     return {
-      styleInfo: {}
-      // activeNames: ['text', 'position', 'borderAndBackground'],
-      // textAlignList: [
-      //   { label: '左对齐', value: 'left' },
-      //   { label: '居中', value: 'center' },
-      //   { label: '右对齐', value: 'right' }
-      // ],
-      // textFotmatList: [
-      //   { label: '粗体', value: 'bold' },
-      //   { label: '斜体', value: 'italic' },
-      //   { label: '划线', value: 'line-through' }
-      // ],
-      // borderStyleList: [
-      //   { label: '实线', value: 'solid' },
-      //   { label: '虚线', value: 'dashed' },
-      //   { label: '双线', value: 'double ' },
-      //   { label: '点线', value: 'dotted ' }
-      // ]
+      styleInfo: {},
+      borderStyleList: [{
+        label: '实线',
+        value: 'solid'
+      }, {
+        label: '虚线',
+        value: 'dashed'
+      }, {
+        label: '点状',
+        value: 'dotted'
+      }, {
+        label: '双线',
+        value: 'double'
+      }]
     }
   },
   computed: {
@@ -310,8 +353,18 @@ export default {
     // }
   },
   methods: {
+    resetStyle () {
+      const { style } = this
+      Object.keys(style).map(key => {
+        if (['borderRadius', 'borderWidth', 'fontSize', 'margin', 'paddingBottom', 'paddingLeft', 'paddingRight', 'paddingTop'].includes(key)) {
+          this.styleInfo[key] = parseInt(style[key])
+        } else {
+          this.styleInfo[key] = style[key]
+        }
+      })
+    },
     updateInfoStyle (type, value) {
-      this.$emit('changeStyle', { type, value })
+      this.updateStyle(type, value)
     },
     changeStyle ({ type, value }) {
       this.updateStyle(type, value)
@@ -326,6 +379,60 @@ export default {
     box-sizing: border-box;
     padding: 0 20px;
     /* border-style: dashed; */
+  }
+  .attr-item-edit-wrapper, .sizeAndPosition-wrapper {
+    display: flex;
+  }
+  /deep/ .attr-item-edit-wrapper {
+    padding-left: 18px;
+    display: flex;
+    width: 100%;
+    text-align: center;
+    padding-bottom: 10px;
+    .attr-item-title {
+      text-align: right;
+      min-width: 60px;
+      font-size: 12px;
+    }
+    .attr-item-edit-input {
+      &.col-2 {
+        width: 90px;
+        margin-left: 10px;
+      }
+      &.col-1 {
+        width: 250px;
+      }
+      &.col-3 {
+        width: 60px;
+        margin-left: 10px;
+      }
+      &.col-4 {
+        width: 50px;
+        margin-left: 10px;
+      }
+      .attr-item-edit-input-des {
+        text-align: center;
+        line-height: 1;
+        margin-top: 2px;
+        font-size: 12px;
+        color: #ccc;
+      }
+    }
+    .el-input-number.is-controls-right .el-input__inner {
+      padding-left: 2px;
+      padding-right: 32px;
+      width: 90px;
+    }
+    .el-input-number--mini {
+      width: 90px;
+    }
+    .el-slider__runway.show-input {
+      margin-right: 108px;
+    }
+  }
+  .sizeAndPosition-wrapper .align-type-item{
+    margin-right: 10px;
+    cursor: pointer;
   }
 }
 </style>
